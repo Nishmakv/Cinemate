@@ -7,7 +7,8 @@ class MOvieListShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: const Color.fromARGB(31, 220, 217, 217),
+      baseColor: Colors.red,
+      // const Color.fromARGB(31, 220, 217, 217),
       highlightColor: Colors.white,
       child: Row(
         children: [

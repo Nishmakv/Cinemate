@@ -6,7 +6,6 @@ import 'package:movie_app/model/search_movies_model.dart';
 import 'package:movie_app/model/trending_movies_model.dart';
 import 'package:movie_app/screens/movie_detail_screen.dart';
 import 'package:movie_app/widgets/movie_list.dart';
-import 'package:movie_app/widgets/movie_list_shimmer.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeTab extends StatefulWidget {
@@ -133,36 +132,27 @@ class _HomeTabState extends State<HomeTab> {
                 }
               },
             ),
-            BlocBuilder<MoviesBloc, MoviesState>(
-              builder: (context, state) {
-                if (state is MoviesLoading) {
-                  return MOvieListShimmer();
-                } else if (state is MoviesSuccess) {
-                  return MovieList(
-                    text: 'Trending Movies',
-                    isSeeAll: true,
-                    movieList: trendingMoviesModel,
-                  );
-                } else {
-                  return Text('No results');
-                }
-              },
-            ),
-            BlocBuilder<MoviesBloc, MoviesState>(
-              builder: (context, state) {
-                if (state is ActionMoviesLoading) {
-                  return MOvieListShimmer();
-                } else if (state is ActionMoviesSuccess) {
-                  return MovieList(
-                      text: 'Action Movies',
-                      isSeeAll: false,
-                      movieList: actionMoviesModel);
-                } else {
-                  return Text('No results');
-                }
-              },
+            MovieList(
+              text: 'Trending Movies',
+              isSeeAll: true,
+              movieList: trendingMoviesModel,
             ),
           ],
+
+          // BlocBuilder<MoviesBloc, MoviesState>(
+          //   builder: (context, state) {
+          //     if (state is ActionMoviesLoading) {
+          //       return MOvieListShimmer();
+          //     } else if (state is ActionMoviesSuccess) {
+          //       return MovieList(
+          //           text: 'Action Movies',
+          //           isSeeAll: false,
+          //           movieList: actionMoviesModel);
+          //     } else {
+          //       return MOvieListShimmer();
+          //     }
+          //   },
+          // ),
         ),
       ),
     );
