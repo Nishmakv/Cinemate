@@ -1,9 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_app/bloc/movies_bloc.dart';
 import 'package:movie_app/model/trending_movies_model.dart';
 import 'package:movie_app/screens/movie_detail_screen.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:movie_app/widgets/trend_search_shimmer.dart';
 
 class TrendingMoviesScreen extends StatefulWidget {
   const TrendingMoviesScreen({super.key});
@@ -36,24 +37,7 @@ class _TrendingMoviesScreenState extends State<TrendingMoviesScreen> {
       child: BlocBuilder<MoviesBloc, MoviesState>(
         builder: (context, state) {
           if (state is MoviesLoading) {
-            return Shimmer.fromColors(
-              baseColor: const Color.fromARGB(31, 220, 217, 217),
-              highlightColor: Colors.white,
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 160,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            );
+            return const TrendingShimmer();
           }
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,9 +76,19 @@ class _TrendingMoviesScreenState extends State<TrendingMoviesScreen> {
                               borderRadius: BorderRadius.circular(10),
                               child: SizedBox(
                                 width: w / 0.1,
-                                child: Image.network(
-                                    fit: BoxFit.cover,
-                                    'https://image.tmdb.org/t/p/w342${trendingMoviesModel[index].posterPath}'),
+                                child: CachedNetworkImage(
+                                  imageUrl:
+                                      'https://image.tmdb.org/t/p/w780${trendingMoviesModel[index].posterPath}',
+                                  fit: BoxFit.cover,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          Center(
+                                    child: CircularProgressIndicator(
+                                      value: downloadProgress.progress,
+                                      color: Colors.orange,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
                             Positioned(

@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 
 import 'package:movie_app/screens/movie_detail_screen.dart';
 import 'package:movie_app/screens/trending_movies_screen.dart';
@@ -71,61 +73,69 @@ class _MovieListState extends State<MovieList> {
                     },
                     itemBuilder: (context, index) {
                       return GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (ctx) => MovieDetailScreen(
-                                    id: widget.movieList[index].id),
-                              ),
-                            );
-                          },
-                          child: Stack(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10),
-                                child: SizedBox(
-                                  height: h / 3.8,
-                                  width: w / 3,
-                                  child: widget.movieList[index].posterPath !=
-                                          null
-                                      ? Image.network(
-                                          fit: BoxFit.cover,
-                                          'https://image.tmdb.org/t/p/w342${widget.movieList[index].posterPath}')
-                                      : Image.asset(
-                                          'assets/images/cinemate_logo.png',
-                                          fit: BoxFit.cover),
-                                ),
-                              ),
-                              Positioned(
-                                top: h / 75,
-                                left: w / 40,
-                                child: widget.movieList[index].voteAverage !=
-                                        0.0
-                                    ? Container(
-                                        height: h / 35,
-                                        width: w / 13,
-                                        decoration: BoxDecoration(
-                                          color: Colors.orange,
-                                          borderRadius:
-                                              BorderRadius.circular(8),
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            widget.movieList[index].voteAverage
-                                                .toStringAsFixed(1),
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: w / 35),
-                                          ),
-                                        ),
-                                      )
-                                    : const SizedBox(),
-
-                              ),
-                            ],
-                          ),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (ctx) => MovieDetailScreen(
+                                  id: widget.movieList[index].id),
+                            ),
                           );
+                        },
+                        child: Stack(
+                          children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: SizedBox(
+                                height: h / 3.8,
+                                width: w / 3,
+                                child: widget.movieList[index].posterPath !=
+                                        null
+                                    ? CachedNetworkImage(
+                                        imageUrl:
+                                            'https://image.tmdb.org/t/p/w780${widget.movieList[index].posterPath}',
+                                        fit: BoxFit.cover,
+                                        progressIndicatorBuilder:
+                                            (context, url, downloadProgress) =>
+                                                Center(
+                                          child: CircularProgressIndicator(
+                                              color: Colors.orange,
+                                              value: downloadProgress.progress),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Ionicons.bug_outline),
+                                      )
+                                    : Image.asset(
+                                        'assets/images/cinemate_logo.png',
+                                        fit: BoxFit.cover),
+                              ),
+                            ),
+                            Positioned(
+                              top: h / 75,
+                              left: w / 40,
+                              child: widget.movieList[index].voteAverage != 0.0
+                                  ? Container(
+                                      height: h / 35,
+                                      width: w / 13,
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius: BorderRadius.circular(8),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          widget.movieList[index].voteAverage
+                                              .toStringAsFixed(1),
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: w / 35),
+                                        ),
+                                      ),
+                                    )
+                                  : const SizedBox(),
+                            ),
+                          ],
+                        ),
+                      );
                     },
                   ),
                 )
@@ -148,9 +158,24 @@ class _MovieListState extends State<MovieList> {
                             borderRadius: BorderRadius.circular(10),
                             child: SizedBox(
                               width: w / 1.7,
-                              child: Image.network(
-                                  'https://image.tmdb.org/t/p/w342${widget.movieList[index].backdropPath}',
-                                  fit: BoxFit.cover),
+                              child: widget.movieList[index].backdropPath !=
+                                      null
+                                  ? CachedNetworkImage(
+                                      imageUrl:
+                                          'https://image.tmdb.org/t/p/w780${widget.movieList[index].backdropPath}',
+                                      fit: BoxFit.cover,
+                                      progressIndicatorBuilder:
+                                          (context, url, downloadProgress) =>
+                                              Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress,
+                                            color: Colors.orange),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Ionicons.bug_outline),
+                                    )
+                                  : Image.asset(
+                                      'assets/images/cinemate_logo.png'),
                             ),
                           ),
                         );

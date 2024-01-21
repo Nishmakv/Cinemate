@@ -98,7 +98,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                             height: h / 3,
                             width: w / 1,
                             child: Image.network(
-                                'https://image.tmdb.org/t/p/w342/${movieDetailsByIdModel?.backdropPath ?? ''}',
+                                'https://image.tmdb.org/t/p/w780/${movieDetailsByIdModel?.backdropPath ?? ''}',
                                 fit: BoxFit.cover));
                       },
                     ),
@@ -126,7 +126,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       BlocBuilder<MoviesBloc, MoviesState>(
                         builder: (context, state) {
                           if (state is MovieDetailsByIdLoading) {
-                            return TextShimmer();
+                            return const TextShimmer();
                           } else {
                             return Text(
                               movieDetailsByIdModel?.originalTitle ?? '',
@@ -141,7 +141,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       BlocBuilder<MoviesBloc, MoviesState>(
                         builder: (context, state) {
                           if (state is MovieDetailsByIdLoading) {
-                            return TextShimmer();
+                            return const TextShimmer();
                           } else {
                             return Row(
                               children: [
@@ -179,97 +179,134 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         },
                       ),
                       const Divider(color: Color.fromARGB(26, 0, 0, 0)),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 4,
-                            child: Text(
-                              'Release Date',
-                              style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: w / 25,
-                              ),
-                            ),
-                          ),
-                          const Expanded(
-                            flex: 6,
-                            child: Text(
-                              'Genre',
-                              style: TextStyle(fontWeight: FontWeight.w600),
-                            ),
-                          )
-                        ],
+                      BlocBuilder<MoviesBloc, MoviesState>(
+                        builder: (context, state) {
+                          if (state is MovieDetailsByIdLoading) {
+                            return const TextShimmer();
+                          } else {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: Text(
+                                    'Release Date',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: w / 25,
+                                    ),
+                                  ),
+                                ),
+                                const Expanded(
+                                  flex: 6,
+                                  child: Text(
+                                    'Genre',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                )
+                              ],
+                            );
+                          }
+                        },
                       ),
                       const SizedBox(
                         height: 5,
                       ),
-                      Row(
-                        children: [
-                          Expanded(
-                            flex: 4,
-                            child: Text(
-                              DateFormat('MMMM d,yyy').format(
-                                movieDetailsByIdModel?.releaseDate ??
-                                    DateTime.now(),
-                              ),
-                              style: TextStyle(fontSize: w / 28),
-                            ),
-                          ),
-                          Expanded(
-                            flex: 6,
-                            child: SizedBox(
-                              height: h / 30,
-                              child: ListView.separated(
-                                  scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return Container(
-                                      padding: EdgeInsets.only(
-                                          top: h / 800,
-                                          left: w / 50,
-                                          right: w / 50),
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color:
-                                              const Color.fromARGB(47, 0, 0, 0),
-                                        ),
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          movieDetailsByIdModel
-                                                  ?.genres[index].name ??
-                                              '',
-                                          style: TextStyle(
-                                              fontSize: w / 33, height: 1),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return const SizedBox(width: 8);
-                                  },
-                                  itemCount:
-                                      movieDetailsByIdModel?.genres.length ??
-                                          0),
-                            ),
-                          ),
-                        ],
+                      BlocBuilder<MoviesBloc, MoviesState>(
+                        builder: (context, state) {
+                          if (state is MovieDetailsByIdLoading) {
+                            return const TextShimmer();
+                          } else {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  flex: 4,
+                                  child: Text(
+                                    DateFormat('MMMM d,yyy').format(
+                                      movieDetailsByIdModel?.releaseDate ??
+                                          DateTime.now(),
+                                    ),
+                                    style: TextStyle(fontSize: w / 28),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 6,
+                                  child: SizedBox(
+                                    height: h / 30,
+                                    child: ListView.separated(
+                                        scrollDirection: Axis.horizontal,
+                                        itemBuilder: (context, index) {
+                                          return Container(
+                                            padding: EdgeInsets.only(
+                                                top: h / 800,
+                                                left: w / 50,
+                                                right: w / 50),
+                                            decoration: BoxDecoration(
+                                              border: Border.all(
+                                                color: const Color.fromARGB(
+                                                    47, 0, 0, 0),
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                movieDetailsByIdModel
+                                                        ?.genres[index].name ??
+                                                    '',
+                                                style: TextStyle(
+                                                    fontSize: w / 33,
+                                                    height: 1),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        separatorBuilder: (context, index) {
+                                          return const SizedBox(width: 8);
+                                        },
+                                        itemCount: movieDetailsByIdModel
+                                                ?.genres.length ??
+                                            0),
+                                  ),
+                                ),
+                              ],
+                            );
+                          }
+                        },
                       ),
                       const Divider(color: Color.fromARGB(26, 0, 0, 0)),
-                      Text(
-                        'Synposis',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: w / 22),
+                      BlocBuilder<MoviesBloc, MoviesState>(
+                        builder: (context, state) {
+                          if (state is MovieDetailsByIdLoading) {
+                            return const TextShimmer();
+                          } else {
+                            return Text(
+                              'Synposis',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: w / 22),
+                            );
+                          }
+                        },
                       ),
                       SizedBox(height: h / 55),
-                      ReadMoreText(
-                        movieDetailsByIdModel?.overview ?? '',
-                        trimCollapsedText: 'read more',
-                        trimExpandedText: 'read less',
-                        trimMode: TrimMode.Length,
-                        colorClickableText: Colors.black,
-                        moreStyle: const TextStyle(fontWeight: FontWeight.w600),
-                        style: TextStyle(fontSize: w / 28),
+                      BlocBuilder<MoviesBloc, MoviesState>(
+                        builder: (context, state) {
+                          if (state is MovieDetailsByIdLoading) {
+                            return const TextShimmer();
+                          } else {
+                            return ReadMoreText(
+                              movieDetailsByIdModel?.overview ?? '',
+                              trimCollapsedText: 'read more',
+                              trimExpandedText: 'read less',
+                              trimMode: TrimMode.Length,
+                              colorClickableText: Colors.black,
+                              moreStyle:
+                                  const TextStyle(fontWeight: FontWeight.w600),
+                              style: TextStyle(fontSize: w / 28),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),

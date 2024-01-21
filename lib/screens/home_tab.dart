@@ -187,7 +187,7 @@ class _HomeTabState extends State<HomeTab> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
                             child: Image.network(
-                                'https://image.tmdb.org/t/p/w342${nowPlayingMoviesModel[index].backdropPath}',
+                                'https://image.tmdb.org/t/p/w780${nowPlayingMoviesModel[index].backdropPath}',
                                 fit: BoxFit.fill),
                           ),
                         );
@@ -217,11 +217,18 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: trendingMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
-            MovieList(
-                text: 'Top Rated Movies',
-                isSeeAll: false,
-                movieList: topRatedMoviesModel,
-                isbox: false),
+            topRatedMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Top Rated Movies',
+                    isSeeAll: false,
+                    movieList: topRatedMoviesModel,
+                    isbox: false)
+                : Shimmer.fromColors(
+                    baseColor: const Color.fromARGB(31, 220, 217, 217),
+                    highlightColor: Colors.white,
+                    child: Container(
+                        height: h / 7, width: w / 1.2, color: Colors.white),
+                  ),
             actionMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Action Movies',
