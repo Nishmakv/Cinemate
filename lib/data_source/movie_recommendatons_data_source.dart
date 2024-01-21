@@ -10,7 +10,7 @@ class MovieRecommendationsDataSource {
         options: Options(headers: {'content_type': 'aapplication/json'}));
     print(response);
     (response.data['results'] as List).forEach((element) {
-      movieRecommendations.add(element);
+      movieRecommendations.add(MovieSearchModel.fromJson(element));
     });
     return movieRecommendations;
   }

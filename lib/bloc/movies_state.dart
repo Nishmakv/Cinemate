@@ -37,8 +37,8 @@ final class MovieRecommendationsLoading extends MoviesState {}
 
 // ignore: must_be_immutable
 final class MovieRecommendationsSuccess extends MoviesState {
-  List<MovieSearchModel> searchMoviesModel = [];
-  MovieRecommendationsSuccess({required this.searchMoviesModel});
+  List<MovieSearchModel> movieRecommendations = [];
+  MovieRecommendationsSuccess({required this.movieRecommendations});
 }
 
 final class MovieRecommendationsFailure extends MoviesState {}
@@ -67,18 +67,6 @@ final class SimilarMoviesSuccess extends MoviesState {
 
 final class SimilarMoviesFailure extends MoviesState {}
 
-final class ActionMoviesInitial extends MoviesState {}
-
-final class ActionMoviesLoading extends MoviesState {}
-
-// ignore: must_be_immutable
-final class ActionMoviesSuccess extends MoviesState {
-  List<MovieSearchModel> actionMoviesModel = [];
-  ActionMoviesSuccess({required this.actionMoviesModel});
-}
-
-final class ActionMoviesFailure extends MoviesState {}
-
 final class NowPlayingMoviesInitial extends MoviesState {}
 
 final class NowPlayingMoviesLoading extends MoviesState {}
@@ -90,3 +78,8 @@ final class NowPlayingMoviesSuccess extends MoviesState {
 }
 
 final class NowPlayingMoviesFailure extends MoviesState {}
+
+final class AnimationMoviesInitial extends MoviesState {}
+
+final class AnimationMoviesLoading extends MoviesState {}
+

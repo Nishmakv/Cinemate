@@ -34,11 +34,6 @@ class SimilarMoviesProcess extends MoviesEvent {
   SimilarMoviesProcess({required this.id});
 }
 
-// ignore: must_be_immutable
-class ActionMoviesProcess extends MoviesEvent {
-  const ActionMoviesProcess();
-}
-
 class NowPlayingMoviesProcess extends MoviesEvent {
   const NowPlayingMoviesProcess();
 }

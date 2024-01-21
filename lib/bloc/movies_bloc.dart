@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:movie_app/data_source/action_movies_data_source.dart';
 import 'package:movie_app/data_source/move_details_by_id_data_source.dart';
 import 'package:movie_app/data_source/movie_recommendatons_data_source.dart';
 import 'package:movie_app/data_source/now_playing_movies_data_source.dart';
@@ -24,7 +23,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       MovieRecommendationsDataSource();
   SearchMoviesDataSource searchMoviesDataSource = SearchMoviesDataSource();
   SimilarMoviesDataSource similarMoviesDataSource = SimilarMoviesDataSource();
-  ActionMoviesDataSource actionMoviesDataSource = ActionMoviesDataSource();
+  
   NowPlayingMoviesDataSource nowPlayingMoviesDataSource =
       NowPlayingMoviesDataSource();
   MoviesBloc() : super(MoviesInitial());
@@ -40,11 +39,9 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       yield* searchMoviesSuccess(event.name);
     } else if (event is SimilarMoviesProcess) {
       yield* similarMoviesSuccess(event.id);
-    } else if (event is ActionMoviesProcess) {
-      yield* actionMoviesSuccess();
     } else if (event is NowPlayingMoviesProcess) {
       yield* nowPlayingMoviesSuccess();
-    }
+    } 
   }
 
   Stream<MoviesState> movieSuccess() async* {
@@ -82,7 +79,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       final dataResponse =
           await movieRecommendationsDataSource.movieRecommendations(id);
       if (dataResponse.isNotEmpty) {
-        yield MovieRecommendationsSuccess(searchMoviesModel: dataResponse);
+        yield MovieRecommendationsSuccess(movieRecommendations: dataResponse);
       } else {
         yield MovieRecommendationsFailure();
       }
@@ -119,20 +116,6 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
     }
   }
 
-  Stream<MoviesState> actionMoviesSuccess() async* {
-    yield ActionMoviesLoading();
-    try {
-      final dataResponse = await actionMoviesDataSource.actionMovies();
-      if (dataResponse.isNotEmpty) {
-        yield ActionMoviesSuccess(actionMoviesModel: dataResponse);
-      } else {
-        yield ActionMoviesFailure();
-      }
-    } catch (e) {
-      yield ActionMoviesFailure();
-    }
-  }
-
   Stream<MoviesState> nowPlayingMoviesSuccess() async* {
     yield NowPlayingMoviesLoading();
     try {
@@ -146,4 +129,6 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       yield NowPlayingMoviesFailure();
     }
   }
+
+  
 }

@@ -1,13 +1,16 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_app/bloc/genres_bloc.dart';
 import 'package:movie_app/bloc/movies_bloc.dart';
 import 'package:movie_app/model/search_movies_model.dart';
 import 'package:movie_app/model/trending_movies_model.dart';
 import 'package:movie_app/screens/movie_detail_screen.dart';
 import 'package:movie_app/widgets/movie_list.dart';
+import 'package:movie_app/widgets/movie_list_shimmer.dart';
 import 'package:shimmer/shimmer.dart';
 
+// ignore: must_be_immutable
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
 
@@ -19,17 +22,43 @@ class _HomeTabState extends State<HomeTab> {
   List<TrendingMovies> trendingMoviesModel = [];
   List<MovieSearchModel> actionMoviesModel = [];
   List<MovieSearchModel> nowPlayingMoviesModel = [];
+  List<MovieSearchModel> animationMoviesModel = [];
+  List<MovieSearchModel> comedyMoviesModel = [];
+  List<MovieSearchModel> romanticMoviesModel = [];
+  List<MovieSearchModel> thrillerMoviesModel = [];
+  List<MovieSearchModel> horrorMoviesModel = [];
+  List<MovieSearchModel> topRatedMoviesModel = [];
   @override
   void initState() {
     super.initState();
+
     context.read<MoviesBloc>().add(
           const MovieProcess(),
         );
-    context.read<MoviesBloc>().add(
-          const ActionMoviesProcess(),
+    context.read<GenresBloc>().add(
+          GenresActionProcess(id: 28),
         );
+    context.read<GenresBloc>().add(
+          AnimationMoviesProcess(id: 16),
+        );
+    context.read<GenresBloc>().add(
+          ComedyMoviesProcess(id: 35),
+        );
+    context.read<GenresBloc>().add(
+          RomanticMoviesProcess(id: 10749),
+        );
+    context.read<GenresBloc>().add(
+          ThrillerMoviesProcess(id: 53),
+        );
+    context.read<GenresBloc>().add(
+          HorrorMoviesProcess(id: 27),
+        );
+
     context.read<MoviesBloc>().add(
           const NowPlayingMoviesProcess(),
+        );
+    context.read<GenresBloc>().add(
+          const TopRatedMoviesProcess(),
         );
   }
 
@@ -47,9 +76,9 @@ class _HomeTabState extends State<HomeTab> {
             }
           },
         ),
-        BlocListener<MoviesBloc, MoviesState>(
+        BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
-            if (state is ActionMoviesSuccess) {
+            if (state is GenresActionSuccess) {
               actionMoviesModel.addAll(state.actionMoviesModel);
               setState(() {});
             }
@@ -59,6 +88,54 @@ class _HomeTabState extends State<HomeTab> {
           listener: (context, state) {
             if (state is NowPlayingMoviesSuccess) {
               nowPlayingMoviesModel.addAll(state.nowPlayingMoviesModel);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<GenresBloc, GenresState>(
+          listener: (context, state) {
+            if (state is AnimationMoviesSuccess) {
+              animationMoviesModel.addAll(state.animationMoviesModel);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<GenresBloc, GenresState>(
+          listener: (context, state) {
+            if (state is ComedyMoviesSuccess) {
+              comedyMoviesModel.addAll(state.comedyMoviesModel);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<GenresBloc, GenresState>(
+          listener: (context, state) {
+            if (state is RomanticMoviesSuccess) {
+              romanticMoviesModel.addAll(state.romanticMoviesModel);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<GenresBloc, GenresState>(
+          listener: (context, state) {
+            if (state is ThrillerMoviesSuccess) {
+              thrillerMoviesModel.addAll(state.thrillerMoviesModel);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<GenresBloc, GenresState>(
+          listener: (context, state) {
+            if (state is HorrorMoviesSuccess) {
+              horrorMoviesModel.addAll(state.horrorMoviesModel);
+              setState(() {});
+            }
+          },
+        ),
+        BlocListener<GenresBloc, GenresState>(
+          listener: (context, state) {
+            if (state is TopRatedMoviesSuccess) {
+              topRatedMoviesModel.addAll(state.topRatedMoviesModel);
               setState(() {});
             }
           },
@@ -82,8 +159,8 @@ class _HomeTabState extends State<HomeTab> {
                     baseColor: const Color.fromARGB(31, 220, 217, 217),
                     highlightColor: Colors.white,
                     child: Container(
-                      height: h / 4,
-                      width: w / 1.1,
+                      height: 30,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),
@@ -126,33 +203,68 @@ class _HomeTabState extends State<HomeTab> {
                       width: w / 1.1,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
                       ),
                     ),
                   );
                 }
               },
             ),
+            trendingMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Trending Movies',
+                    isSeeAll: true,
+                    movieList: trendingMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
             MovieList(
-              text: 'Trending Movies',
-              isSeeAll: true,
-              movieList: trendingMoviesModel,
-            ),
+                text: 'Top Rated Movies',
+                isSeeAll: false,
+                movieList: topRatedMoviesModel,
+                isbox: false),
+            actionMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Action Movies',
+                    isSeeAll: false,
+                    movieList: actionMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
+            animationMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Animation Movies',
+                    isSeeAll: false,
+                    movieList: animationMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
+            comedyMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Comedy Movies',
+                    isSeeAll: false,
+                    movieList: comedyMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
+            romanticMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Romantic Movies',
+                    isSeeAll: false,
+                    movieList: romanticMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
+            thrillerMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Thriller Movies',
+                    isSeeAll: false,
+                    movieList: thrillerMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
+            horrorMoviesModel.isNotEmpty
+                ? MovieList(
+                    text: 'Horror Movies',
+                    isSeeAll: false,
+                    movieList: horrorMoviesModel,
+                    isbox: true)
+                : const MOvieListShimmer(),
           ],
-
-          // BlocBuilder<MoviesBloc, MoviesState>(
-          //   builder: (context, state) {
-          //     if (state is ActionMoviesLoading) {
-          //       return MOvieListShimmer();
-          //     } else if (state is ActionMoviesSuccess) {
-          //       return MovieList(
-          //           text: 'Action Movies',
-          //           isSeeAll: false,
-          //           movieList: actionMoviesModel);
-          //     } else {
-          //       return MOvieListShimmer();
-          //     }
-          //   },
-          // ),
         ),
       ),
     );
