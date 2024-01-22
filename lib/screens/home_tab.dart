@@ -57,6 +57,7 @@ class _HomeTabState extends State<HomeTab> {
     context.read<MoviesBloc>().add(
           const NowPlayingMoviesProcess(),
         );
+
     context.read<GenresBloc>().add(
           const TopRatedMoviesProcess(),
         );
@@ -152,22 +153,8 @@ class _HomeTabState extends State<HomeTab> {
                 height: h / 12.5,
               ),
             ),
-            BlocBuilder<MoviesBloc, MoviesState>(
-              builder: (context, state) {
-                if (state is NowPlayingMoviesLoading) {
-                  return Shimmer.fromColors(
-                    baseColor: const Color.fromARGB(31, 220, 217, 217),
-                    highlightColor: Colors.white,
-                    child: Container(
-                      height: 30,
-                      width: double.infinity,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                  );
-                } else if (state is NowPlayingMoviesSuccess) {
-                  return SizedBox(
+            nowPlayingMoviesModel.isNotEmpty
+                ? SizedBox(
                     height: h / 4,
                     child: Swiper(
                       itemCount: nowPlayingMoviesModel.length,
@@ -193,23 +180,19 @@ class _HomeTabState extends State<HomeTab> {
                         );
                       },
                     ),
-                  );
-                } else {
-                  return Shimmer.fromColors(
+                  )
+                : Shimmer.fromColors(
                     baseColor: const Color.fromARGB(31, 220, 217, 217),
                     highlightColor: Colors.white,
                     child: Container(
-                      height: h / 4,
-                      width: w / 1.1,
+                      height: 30,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         color: Colors.white,
                       ),
                     ),
-                  );
-                }
-              },
-            ),
+                  ),
             trendingMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Trending Movies',

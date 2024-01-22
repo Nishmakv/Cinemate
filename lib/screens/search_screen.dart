@@ -1,28 +1,27 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:movie_app/bloc/movies_bloc.dart';
 import 'package:movie_app/model/search_movies_model.dart';
 import 'package:movie_app/widgets/movie_grid.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:movie_app/widgets/trend_search_shimmer.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
-
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     Timer? _debounce;
     List<MovieSearchModel> searchMoviesModel = [];
     final double h = MediaQuery.of(context).size.height;
     final double w = MediaQuery.of(context).size.width;
-    TextEditingController searchController = TextEditingController();
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -41,6 +40,11 @@ class _SearchScreenState extends State<SearchScreen> {
                           SearchMovieProcess(name: value),
                         );
                   });
+                },
+                onFieldSubmitted: (value) {
+                  context.read<MoviesBloc>().add(
+                        SearchMovieProcess(name: value),
+                      );
                 },
                 decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
@@ -74,40 +78,25 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           BlocBuilder<MoviesBloc, MoviesState>(
             builder: (context, state) {
-              if (state is SearchMoviesSuccess) {
+              if (state is SearchMoviesLoading) {
+                return const TrendingShimmer();
+              } else if (state is SearchMoviesSuccess) {
                 searchMoviesModel.addAll(state.searchMoviesModel);
-                return MovieGrid(text: 'Results', movieGrid: searchMoviesModel);
-              } else if (state is SearchMoviesLoading) {
-                return Shimmer.fromColors(
-                  baseColor: const Color.fromARGB(31, 220, 217, 217),
-                  highlightColor: Colors.white,
-                  child: SizedBox(
-                    height: 500,
-                    child: GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2),
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: 160,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        );
-                      },
-                      itemCount: 5,
+                return MovieGrid(
+                    text: 'Your Findings', movieGrid: searchMoviesModel);
+              } else {
+                return Padding(
+                  padding: EdgeInsets.only(top: h / 3),
+                  child: Text(
+                    'Search Here',
+                    style: TextStyle(
+                      fontSize: w / 20,
                     ),
                   ),
                 );
-              } else {
-                return const Text("Seach");
               }
             },
           ),
-          // Text(searchMoviesModel.isNotEmpty
-          //     ? searchMoviesModel[0].posterPath!
-          //     : "fsf"),
         ],
       ),
     );

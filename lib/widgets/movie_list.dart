@@ -140,7 +140,7 @@ class _MovieListState extends State<MovieList> {
                   ),
                 )
               : SizedBox(
-                  height: h / 7,
+                  height: h / 5.5,
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {

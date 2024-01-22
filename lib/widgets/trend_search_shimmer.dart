@@ -7,7 +7,7 @@ class TrendingShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double h = MediaQuery.of(context).size.height;
-    final double w = MediaQuery.of(context).size.width;
+    // final double w = MediaQuery.of(context).size.width;
     return Shimmer.fromColors(
       baseColor: const Color.fromARGB(31, 220, 217, 217),
       highlightColor: Colors.white,
@@ -17,7 +17,7 @@ class TrendingShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  height: h / 30,
+                  height: h / 25,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -28,7 +28,7 @@ class TrendingShimmer extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: Container(
-                  height: h / 30,
+                  height: h / 25,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -43,7 +43,7 @@ class TrendingShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  height: h / 30,
+                  height: h / 25,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -54,7 +54,7 @@ class TrendingShimmer extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: Container(
-                  height: h / 30,
+                  height: h / 25,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -69,7 +69,7 @@ class TrendingShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  height: h / 30,
+                  height: h / 25,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -80,7 +80,7 @@ class TrendingShimmer extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: Container(
-                  height: h / 15,
+                  height: h / 25,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,

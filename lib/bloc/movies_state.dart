@@ -82,4 +82,3 @@ final class NowPlayingMoviesFailure extends MoviesState {}
 final class AnimationMoviesInitial extends MoviesState {}
 
 final class AnimationMoviesLoading extends MoviesState {}
-

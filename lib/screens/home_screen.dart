@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   List screens = [
-     HomeTab(),
+    const HomeTab(),
     const TrendingMoviesScreen(),
     const SearchScreen()
   ];
@@ -29,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20.0),
         child: DotNavigationBar(
+          
+          itemPadding: const EdgeInsets.all(14),
           boxShadow: const [
             BoxShadow(
               blurRadius: 12,
@@ -36,17 +38,20 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ],
           currentIndex: selectedIndex,
-          dotIndicatorColor: Colors.orange,
-          marginR: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-          paddingR: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
+          
+          dotIndicatorColor: const Color.fromARGB(0, 0, 0, 0),
+          marginR: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+          paddingR: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
           enableFloatingNavBar: true,
           enablePaddingAnimation: true,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.grey,
           onTap: (index) {
-            setState(() {
-              selectedIndex = index;
-            });
+            setState(
+              () {
+                selectedIndex = index;
+              },
+            );
           },
           items: [
             DotNavigationBarItem(
