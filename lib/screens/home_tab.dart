@@ -185,7 +185,7 @@ class _HomeTabState extends State<HomeTab> {
                     baseColor: const Color.fromARGB(31, 220, 217, 217),
                     highlightColor: Colors.white,
                     child: Container(
-                      height: h / 20,
+                      height: h / 10,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),

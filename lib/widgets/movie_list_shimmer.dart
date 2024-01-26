@@ -15,7 +15,7 @@ class MOvieListShimmer extends StatelessWidget {
         children: [
           Expanded(
             child: Container(
-              height: h / 20,
+              height: h / 5,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -26,7 +26,7 @@ class MOvieListShimmer extends StatelessWidget {
           const SizedBox(width: 5),
           Expanded(
             child: Container(
-              height: h / 20,
+              height: h / 5,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -37,7 +37,7 @@ class MOvieListShimmer extends StatelessWidget {
           const SizedBox(width: 5),
           Expanded(
             child: Container(
-              height: h / 20,
+              height: h / 5,
               width: double.infinity,
               decoration: BoxDecoration(
                 color: Colors.white,
