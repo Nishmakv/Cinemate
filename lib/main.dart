@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:movie_app/bloc/genres_bloc.dart';
 import 'package:movie_app/bloc/movies_bloc.dart';
+import 'package:movie_app/bloc/navigation_bloc.dart';
 import 'package:movie_app/screens/home_screen.dart';
 import 'package:movie_app/theme/theme.dart';
 
@@ -17,6 +18,9 @@ void main() {
       ),
       BlocProvider(
         create: (context) => GenresBloc(),
+      ),
+      BlocProvider(
+        create: (context) => NavigationBloc(),
       ),
     ],
     child: const MyApp(),

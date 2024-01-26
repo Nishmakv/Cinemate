@@ -1,9 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:movie_app/bloc/navigation_bloc.dart';
 
 import 'package:movie_app/screens/movie_detail_screen.dart';
-import 'package:movie_app/screens/trending_movies_screen.dart';
 
 // ignore: must_be_immutable
 class MovieList extends StatefulWidget {
@@ -41,12 +42,10 @@ class _MovieListState extends State<MovieList> {
               widget.isSeeAll
                   ? GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (ctx) => const TrendingMoviesScreen(),
-                          ),
-                        );
+                        print('hey');
+                        context.read<NavigationBloc>().add(
+                              NavigationProcess(index: 1),
+                            );
                       },
                       child: Text(
                         'See all',
