@@ -83,7 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
               } else if (state is SearchMoviesSuccess) {
                 searchMoviesModel.addAll(state.searchMoviesModel);
                 return MovieGrid(
-                    text: 'Your Findings', movieGrid: searchMoviesModel);
+                   movieGrid: searchMoviesModel);
               } else {
                 return Padding(
                   padding: EdgeInsets.only(top: h / 3),

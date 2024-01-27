@@ -32,7 +32,7 @@ class _MovieListState extends State<MovieList> {
     return Column(
       children: [
         Padding(
-          padding: EdgeInsets.only(top: h / 60, left: w / 22, right: w / 17),
+          padding: EdgeInsets.only(top: h / 300, left: w / 22, right: w / 17),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -85,74 +85,70 @@ class _MovieListState extends State<MovieList> {
                           child: AnimationConfiguration.staggeredList(
                             position: index,
                             duration: const Duration(milliseconds: 500),
-                            child: SlideAnimation(
-                              verticalOffset: 50.0,
-                              child: FadeInAnimation(
-                                child: Stack(
-                                  children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: SizedBox(
-                                        height: h / 3.8,
-                                        width: w / 3,
-                                        child: widget.movieList[index]
-                                                    .posterPath !=
-                                                null
-                                            ? CachedNetworkImage(
-                                                imageUrl:
-                                                    'https://image.tmdb.org/t/p/w780${widget.movieList[index].posterPath}',
-                                                fit: BoxFit.cover,
-                                                progressIndicatorBuilder:
-                                                    (context, url,
-                                                            downloadProgress) =>
-                                                        Center(
-                                                  child:
-                                                      CircularProgressIndicator(
-                                                          color: Colors.orange,
-                                                          value:
-                                                              downloadProgress
-                                                                  .progress),
-                                                ),
-                                                errorWidget: (context, url,
-                                                        error) =>
-                                                    const Icon(
-                                                        Ionicons.bug_outline),
-                                              )
-                                            : Image.asset(
-                                                'assets/images/cinemate_logo.png',
-                                                fit: BoxFit.cover),
-                                      ),
-                                    ),
-                                    Positioned(
-                                      top: h / 75,
-                                      left: w / 40,
+                            child: FadeInAnimation(
+                              
+                              child: Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: SizedBox(
+                                      height: h / 3.8,
+                                      width: w / 3,
                                       child: widget.movieList[index]
-                                                  .voteAverage !=
-                                              0.0
-                                          ? Container(
-                                              height: h / 35,
-                                              width: w / 13,
-                                              decoration: BoxDecoration(
-                                                color: Colors.orange,
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
+                                                  .posterPath !=
+                                              null
+                                          ? CachedNetworkImage(
+                                              imageUrl:
+                                                  'https://image.tmdb.org/t/p/w780${widget.movieList[index].posterPath}',
+                                              fit: BoxFit.cover,
+                                              progressIndicatorBuilder:
+                                                  (context, url,
+                                                          downloadProgress) =>
+                                                      Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                        color: Colors.orange,
+                                                        value: downloadProgress
+                                                            .progress),
                                               ),
-                                              child: Center(
-                                                child: Text(
-                                                  widget.movieList[index]
-                                                      .voteAverage
-                                                      .toStringAsFixed(1),
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      fontSize: w / 35),
-                                                ),
-                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Icon(
+                                                          Ionicons.bug_outline),
                                             )
-                                          : const SizedBox(),
+                                          : Image.asset(
+                                              'assets/images/cinemate_logo.png',
+                                              fit: BoxFit.cover),
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                  Positioned(
+                                    top: h / 75,
+                                    left: w / 40,
+                                    child: widget
+                                                .movieList[index].voteAverage !=
+                                            0.0
+                                        ? Container(
+                                            height: h / 35,
+                                            width: w / 13,
+                                            decoration: BoxDecoration(
+                                              color: Colors.orange,
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                widget.movieList[index]
+                                                    .voteAverage
+                                                    .toStringAsFixed(1),
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.w600,
+                                                    fontSize: w / 35),
+                                              ),
+                                            ),
+                                          )
+                                        : const SizedBox(),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
@@ -164,7 +160,6 @@ class _MovieListState extends State<MovieList> {
               : SizedBox(
                   height: h / 5.5,
                   child: AnimationLimiter(
-
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
@@ -180,34 +175,34 @@ class _MovieListState extends State<MovieList> {
                             },
                             child: AnimationConfiguration.staggeredList(
                               position: index,
-                               duration: const Duration(milliseconds: 500),
-                              child: SlideAnimation(
-                                verticalOffset: 50.0,
-
-                                child: FadeInAnimation(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: SizedBox(
-                                      width: w / 1.7,
-                                      child: widget.movieList[index].backdropPath !=
-                                              null
-                                          ? CachedNetworkImage(
-                                              imageUrl:
-                                                  'https://image.tmdb.org/t/p/w780${widget.movieList[index].backdropPath}',
-                                              fit: BoxFit.cover,
-                                              progressIndicatorBuilder:
-                                                  (context, url, downloadProgress) =>
-                                                      Center(
-                                                child: CircularProgressIndicator(
-                                                    value: downloadProgress.progress,
-                                                    color: Colors.orange),
-                                              ),
-                                              errorWidget: (context, url, error) =>
-                                                  const Icon(Ionicons.bug_outline),
-                                            )
-                                          : Image.asset(
-                                              'assets/images/cinemate_logo.png'),
-                                    ),
+                              duration: const Duration(milliseconds: 500),
+                              child: FadeInAnimation(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: SizedBox(
+                                    width: w / 1.7,
+                                    child: widget.movieList[index]
+                                                .backdropPath !=
+                                            null
+                                        ? CachedNetworkImage(
+                                            imageUrl:
+                                                'https://image.tmdb.org/t/p/w780${widget.movieList[index].backdropPath}',
+                                            fit: BoxFit.cover,
+                                            progressIndicatorBuilder: (context,
+                                                    url, downloadProgress) =>
+                                                Center(
+                                              child: CircularProgressIndicator(
+                                                  value:
+                                                      downloadProgress.progress,
+                                                  color: Colors.orange),
+                                            ),
+                                            errorWidget:
+                                                (context, url, error) =>
+                                                    const Icon(
+                                                        Ionicons.bug_outline),
+                                          )
+                                        : Image.asset(
+                                            'assets/images/cinemate_logo.png'),
                                   ),
                                 ),
                               ),

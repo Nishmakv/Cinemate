@@ -185,7 +185,7 @@ class _HomeTabState extends State<HomeTab> {
                     baseColor: const Color.fromARGB(31, 220, 217, 217),
                     highlightColor: Colors.white,
                     child: Container(
-                      height: h / 10,
+                      height: h / 4,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -193,6 +193,7 @@ class _HomeTabState extends State<HomeTab> {
                       ),
                     ),
                   ),
+            SizedBox(height: h / 60),
             trendingMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Trending Movies',
@@ -200,6 +201,7 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: trendingMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
+            SizedBox(height: h / 60),
             topRatedMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Top Rated Movies',
@@ -212,6 +214,7 @@ class _HomeTabState extends State<HomeTab> {
                     child: Container(
                         height: h / 7, width: w / 1.2, color: Colors.white),
                   ),
+            SizedBox(height: h / 60),
             actionMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Action Movies',
@@ -219,6 +222,7 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: actionMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
+            SizedBox(height: h / 60),
             animationMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Animation Movies',
@@ -226,6 +230,7 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: animationMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
+            SizedBox(height: h / 60),
             comedyMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Comedy Movies',
@@ -233,6 +238,7 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: comedyMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
+            SizedBox(height: h / 60),
             romanticMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Romantic Movies',
@@ -240,6 +246,7 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: romanticMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
+            SizedBox(height: h / 60),
             thrillerMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Thriller Movies',
@@ -247,6 +254,7 @@ class _HomeTabState extends State<HomeTab> {
                     movieList: thrillerMoviesModel,
                     isbox: true)
                 : const MOvieListShimmer(),
+            SizedBox(height: h / 60),
             horrorMoviesModel.isNotEmpty
                 ? MovieList(
                     text: 'Horror Movies',

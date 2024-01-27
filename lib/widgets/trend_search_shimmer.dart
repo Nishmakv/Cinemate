@@ -17,7 +17,7 @@ class TrendingShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  height: h / 25,
+                  height: h / 1,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -28,7 +28,7 @@ class TrendingShimmer extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: Container(
-                  height: h / 25,
+                  height: h / 1,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -43,7 +43,7 @@ class TrendingShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  height: h / 25,
+                  height: h / 1,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -54,7 +54,7 @@ class TrendingShimmer extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: Container(
-                  height: h / 25,
+                  height: h / 1,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -69,7 +69,7 @@ class TrendingShimmer extends StatelessWidget {
             children: [
               Expanded(
                 child: Container(
-                  height: h / 25,
+                  height: h / 1,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -80,7 +80,7 @@ class TrendingShimmer extends StatelessWidget {
               const SizedBox(width: 5),
               Expanded(
                 child: Container(
-                  height: h / 25,
+                  height: h / 1,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: Colors.white,
