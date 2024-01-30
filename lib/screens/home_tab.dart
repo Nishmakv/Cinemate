@@ -208,11 +208,20 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: topRatedMoviesModel,
                     isbox: false)
-                : Shimmer.fromColors(
-                    baseColor: const Color.fromARGB(31, 220, 217, 217),
-                    highlightColor: Colors.white,
-                    child: Container(
-                        height: h / 7, width: w / 1.2, color: Colors.white),
+                : Padding(
+                    padding: EdgeInsets.only(left: w / 20),
+                    child: Shimmer.fromColors(
+                      baseColor: const Color.fromARGB(31, 220, 217, 217),
+                      highlightColor: Colors.white,
+                      child: Container(
+                        height: h / 7,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            ),
+                      ),
+                    ),
                   ),
             SizedBox(height: h / 60),
             actionMoviesModel.isNotEmpty

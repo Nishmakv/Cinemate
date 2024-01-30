@@ -7,7 +7,7 @@ class TrendingShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double h = MediaQuery.of(context).size.height;
-    // final double w = MediaQuery.of(context).size.width;
+    final double w = MediaQuery.of(context).size.width;
     return Shimmer.fromColors(
       baseColor: const Color.fromARGB(31, 220, 217, 217),
       highlightColor: Colors.white,
@@ -25,7 +25,8 @@ class TrendingShimmer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 5),
+               SizedBox(width: w/10),
+               SizedBox(height: h/10),
               Expanded(
                 child: Container(
                   height: h / 1,
@@ -38,7 +39,8 @@ class TrendingShimmer extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          SizedBox(width: w/10),
+               SizedBox(height: h/10),
           Row(
             children: [
               Expanded(
@@ -51,7 +53,8 @@ class TrendingShimmer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 5),
+              SizedBox(width: w/10),
+               SizedBox(height: h/10),
               Expanded(
                 child: Container(
                   height: h / 1,
@@ -64,7 +67,8 @@ class TrendingShimmer extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
+          SizedBox(width: w/10),
+               SizedBox(height: h/10),
           Row(
             children: [
               Expanded(
@@ -77,7 +81,8 @@ class TrendingShimmer extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 5),
+               SizedBox(width: w/10),
+               SizedBox(height: h/10),
               Expanded(
                 child: Container(
                   height: h / 1,
