@@ -51,7 +51,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderSide: const BorderSide(color: Colors.orange),
                     borderRadius: BorderRadius.circular(7),
                   ),
-                  fillColor: const Color.fromARGB(255, 249, 248, 248),
+                  fillColor: Theme.of(context).brightness == Brightness.light
+                      ? const Color.fromARGB(255, 249, 248, 248)
+                      : const Color.fromARGB(21, 224, 224, 224),
                   filled: true,
                   prefixIcon: Padding(
                     padding: EdgeInsets.all(h / 45),
@@ -61,8 +63,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     ),
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: const BorderSide(
-                        color: Color.fromARGB(255, 244, 240, 240), width: 1),
+                    borderSide:  BorderSide(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? const Color.fromARGB(255, 244, 240, 240)
+                            : Colors.black),
                     borderRadius: BorderRadius.circular(7),
                   ),
                   hintText: 'Search Movies',
@@ -82,16 +86,17 @@ class _SearchScreenState extends State<SearchScreen> {
                 return const TrendingShimmer();
               } else if (state is SearchMoviesSuccess) {
                 searchMoviesModel.addAll(state.searchMoviesModel);
-                return MovieGrid(
-                   movieGrid: searchMoviesModel);
+                return MovieGrid(movieGrid: searchMoviesModel);
               } else {
                 return Padding(
                   padding: EdgeInsets.only(top: h / 3),
                   child: Text(
                     'Search Here',
                     style: TextStyle(
-                      fontSize: w / 20,
-                    ),
+                        fontSize: w / 20,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? Colors.black
+                            : Colors.white),
                   ),
                 );
               }

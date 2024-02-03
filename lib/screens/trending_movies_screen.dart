@@ -34,28 +34,21 @@ class _TrendingMoviesScreenState extends State<TrendingMoviesScreen> {
           setState(() {});
         }
       },
-      child: BlocBuilder<MoviesBloc, MoviesState>(builder: (context, state) {
-        if (state is MoviesLoading) {
-          return const TrendingShimmer();
-        } else {
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: h / 15, left: w / 25),
-                  child: Text(
-                    'Trending Movies',
-                    style: TextStyle(
-                        fontSize: w / 18, fontWeight: FontWeight.w600),
-                  ),
-                ),
-                MovieGrid(movieGrid: trendingMoviesModel)
-              ],
-            ),
-          );
-        }
-      },
+      child: BlocBuilder<MoviesBloc, MoviesState>(
+        builder: (context, state) {
+          final double h = MediaQuery.of(context).size.height;
+
+          if (state is MoviesLoading) {
+            return const TrendingShimmer();
+          } else {
+            return Padding(
+              padding: EdgeInsets.only(top: h / 40),
+              child: SingleChildScrollView(
+                child: MovieGrid(movieGrid: trendingMoviesModel),
+              ),
+            );
+          }
+        },
       ),
     );
   }

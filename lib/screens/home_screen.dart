@@ -23,6 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    final double w = MediaQuery.of(context).size.width;
+    final double h = MediaQuery.of(context).size.height;
     return BlocListener<NavigationBloc, int>(
       listener: (context, state) {
         setState(() {
@@ -35,7 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Theme.of(context).colorScheme.background,
         body: screens[selectedIndex],
         bottomNavigationBar: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: EdgeInsets.all(h / 38),
           child: DotNavigationBar(
             itemPadding: const EdgeInsets.all(14),
             boxShadow: const [
@@ -46,8 +48,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
             currentIndex: context.watch<NavigationBloc>().state,
             dotIndicatorColor: const Color.fromARGB(0, 0, 0, 0),
-            marginR: const EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-            paddingR: const EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+            marginR: EdgeInsets.symmetric(horizontal: w / 15, vertical: 0),
+            paddingR: EdgeInsets.symmetric(horizontal: w / 30, vertical: 0),
             enableFloatingNavBar: true,
             enablePaddingAnimation: true,
             selectedItemColor: Colors.black,

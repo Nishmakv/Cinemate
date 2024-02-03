@@ -46,11 +46,19 @@ dependencies:
   ionicons: ^0.2.2
   readmore: ^2.2.0
   shimmer: ^3.0.0
+  
 
 dev_dependencies:
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+
+flutter_icons:
+  image_path: assets/images/Frame 2 (2).png
+  android: true
+
+
 
 flutter_native_splash:
   color: "#ffffff"

@@ -42,6 +42,16 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   Widget build(BuildContext context) {
     final double w = MediaQuery.of(context).size.width;
     final double h = MediaQuery.of(context).size.height;
+    final ThemeData theme = Theme.of(context);
+    final Color baseColor = theme.brightness == Brightness.light
+        ? const Color.fromARGB(31, 220, 217, 217)
+        : const Color.fromARGB(31, 220, 217, 217);
+    final Color highlightColor = theme.brightness == Brightness.light
+        ? Colors.white
+        : const Color.fromARGB(31, 220, 217, 217);
+    final Color containerColor = theme.brightness == Brightness.light
+        ? Colors.white
+        : const Color.fromARGB(154, 220, 217, 217);
     return MultiBlocListener(
       listeners: [
         BlocListener<MoviesBloc, MoviesState>(
@@ -81,13 +91,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       builder: (context, state) {
                         if (state is MovieDetailsByIdLoading) {
                           return Shimmer.fromColors(
-                            baseColor: const Color.fromARGB(31, 220, 217, 217),
-                            highlightColor: Colors.white,
+                            baseColor: baseColor,
+                            highlightColor: highlightColor,
                             child: Container(
                               height: h / 3,
                               width: w / 1,
                               decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: containerColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
@@ -132,7 +142,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               movieDetailsByIdModel?.originalTitle ?? '',
                               style: TextStyle(
                                   fontSize: h / 32,
-                                  fontWeight: FontWeight.w600),
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : Colors.white),
                             );
                           }
                         },
@@ -150,12 +164,22 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                 Text(
                                   movieDetailsByIdModel?.runtime.toString() ??
                                       '',
-                                  style: TextStyle(fontSize: w / 30),
+                                  style: TextStyle(
+                                      fontSize: w / 30,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Colors.black
+                                          : Colors.white),
                                 ),
                                 SizedBox(width: w / 100),
                                 Text(
                                   'minutes',
-                                  style: TextStyle(fontSize: w / 32),
+                                  style: TextStyle(
+                                      fontSize: w / 32,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Colors.black
+                                          : Colors.white),
                                 ),
                                 SizedBox(width: w / 20),
                                 const Icon(Ionicons.star,
@@ -166,19 +190,33 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   movieDetailsByIdModel?.voteAverage
                                           ?.toStringAsFixed(1) ??
                                       '',
-                                  style: TextStyle(fontSize: w / 30),
+                                  style: TextStyle(
+                                      fontSize: w / 30,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Colors.black
+                                          : Colors.white),
                                 ),
                                 SizedBox(width: w / 100),
                                 Text(
                                   '(IMDb)',
-                                  style: TextStyle(fontSize: w / 30),
+                                  style: TextStyle(
+                                      fontSize: w / 30,
+                                      color: Theme.of(context).brightness ==
+                                              Brightness.light
+                                          ? Colors.black
+                                          : Colors.white),
                                 )
                               ],
                             );
                           }
                         },
                       ),
-                      const Divider(color: Color.fromARGB(26, 0, 0, 0)),
+                      Divider(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? const Color.fromARGB(26, 0, 0, 0)
+                            : const Color.fromARGB(106, 255, 255, 255),
+                      ),
                       BlocBuilder<MoviesBloc, MoviesState>(
                         builder: (context, state) {
                           if (state is MovieDetailsByIdLoading) {
@@ -191,17 +229,24 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   child: Text(
                                     'Release Date',
                                     style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: w / 25,
-                                    ),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: w / 25,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? Colors.black
+                                            : Colors.white),
                                   ),
                                 ),
-                                const Expanded(
+                                Expanded(
                                   flex: 6,
                                   child: Text(
                                     'Genre',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? Colors.black
+                                            : Colors.white),
                                   ),
                                 )
                               ],
@@ -226,7 +271,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                       movieDetailsByIdModel?.releaseDate ??
                                           DateTime.now(),
                                     ),
-                                    style: TextStyle(fontSize: w / 28),
+                                    style: TextStyle(
+                                        fontSize: w / 28,
+                                        color: Theme.of(context).brightness ==
+                                                Brightness.light
+                                            ? Colors.black
+                                            : Colors.white),
                                   ),
                                 ),
                                 Expanded(
@@ -243,8 +293,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 right: w / 50),
                                             decoration: BoxDecoration(
                                               border: Border.all(
-                                                color: const Color.fromARGB(
-                                                    47, 0, 0, 0),
+                                                color: Theme.of(context)
+                                                            .brightness ==
+                                                        Brightness.light
+                                                    ? const Color.fromARGB(
+                                                        47, 0, 0, 0)
+                                                    : const Color.fromARGB(
+                                                        92, 255, 255, 255),
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(20),
@@ -256,7 +311,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                     '',
                                                 style: TextStyle(
                                                     fontSize: w / 33,
-                                                    height: 1),
+                                                    height: 1,
+                                                    color: Theme.of(context)
+                                                                .brightness ==
+                                                            Brightness.light
+                                                        ? Colors.black
+                                                        : Colors.white),
                                               ),
                                             ),
                                           );
@@ -274,7 +334,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           }
                         },
                       ),
-                      const Divider(color: Color.fromARGB(26, 0, 0, 0)),
+                      Divider(
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? const Color.fromARGB(26, 0, 0, 0)
+                            : const Color.fromARGB(106, 255, 255, 255),
+                      ),
                       BlocBuilder<MoviesBloc, MoviesState>(
                         builder: (context, state) {
                           if (state is MovieDetailsByIdLoading) {
@@ -284,7 +348,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               'Synposis',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  fontSize: w / 22),
+                                  fontSize: w / 22,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : Colors.white),
                             );
                           }
                         },
@@ -293,17 +361,45 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       BlocBuilder<MoviesBloc, MoviesState>(
                         builder: (context, state) {
                           if (state is MovieDetailsByIdLoading) {
-                            return const TextShimmer();
+                            return Shimmer.fromColors(
+                              baseColor: baseColor,
+                              highlightColor: highlightColor,
+                              child: Column(
+                                children: [
+                                  Container(
+                                    width: double.infinity,
+                                    height: h / 7,
+                                    decoration: BoxDecoration(
+                                        color: containerColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                  ),
+                                ],
+                              ),
+                            );
                           } else {
                             return ReadMoreText(
                               movieDetailsByIdModel?.overview ?? '',
                               trimCollapsedText: 'read more',
                               trimExpandedText: 'read less',
                               trimMode: TrimMode.Length,
-                              colorClickableText: Colors.black,
-                              moreStyle:
-                                  const TextStyle(fontWeight: FontWeight.w600),
-                              style: TextStyle(fontSize: w / 28),
+                              colorClickableText:
+                                  Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : Colors.white,
+                              moreStyle: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : Colors.white),
+                              style: TextStyle(
+                                  fontSize: w / 28,
+                                  color: Theme.of(context).brightness ==
+                                          Brightness.light
+                                      ? Colors.black
+                                      : Colors.white),
                             );
                           }
                         },
@@ -326,7 +422,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                         movieList: similarMoviesModel,
                         isbox: true,
                       )
-                    : const MOvieListShimmer(),
+                    : MOvieListShimmer(theme: Theme.of(context)),
               ],
             ),
           ),

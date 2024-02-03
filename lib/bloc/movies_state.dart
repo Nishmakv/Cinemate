@@ -31,6 +31,7 @@ final class MovieDetialsByIdSuccess extends MoviesState {
 
 final class MovieDetailsByIdFailure extends MoviesState {}
 
+
 final class MovieRecommendationsInitial extends MoviesState {}
 
 final class MovieRecommendationsLoading extends MoviesState {}

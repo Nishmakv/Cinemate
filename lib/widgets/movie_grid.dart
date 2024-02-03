@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:movie_app/model/search_movies_model.dart';
 import 'package:movie_app/model/trending_movies_model.dart';
 import 'package:movie_app/screens/movie_detail_screen.dart';
 
@@ -15,7 +14,7 @@ class MovieGrid extends StatefulWidget {
 }
 
 class _MovieGridState extends State<MovieGrid> {
-  List<TrendingMovies> trendingMoviesModel = [];
+  List<TrendingMovies> movieGrid = [];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,7 @@ class _MovieGridState extends State<MovieGrid> {
                           context,
                           MaterialPageRoute(
                             builder: (ctx) => MovieDetailScreen(
-                                id: trendingMoviesModel[index].id),
+                                id: widget.movieGrid[index].id),
                           ),
                         );
                       },
@@ -56,14 +55,15 @@ class _MovieGridState extends State<MovieGrid> {
                                 borderRadius: BorderRadius.circular(10),
                                 child: SizedBox(
                                   width: w / 0.1,
-                                  child: widget.movieGrid[index].posterPath != null
+                                  child: widget.movieGrid[index].posterPath !=
+                                          null
                                       ? CachedNetworkImage(
                                           imageUrl:
                                               'https://image.tmdb.org/t/p/w342${widget.movieGrid[index].posterPath}',
                                           fit: BoxFit.cover,
-                                          progressIndicatorBuilder:
-                                              (context, url, downloadProgress) =>
-                                                  Center(
+                                          progressIndicatorBuilder: (context,
+                                                  url, downloadProgress) =>
+                                              Center(
                                             child: CircularProgressIndicator(
                                               value: downloadProgress.progress,
                                               color: Colors.orange,
@@ -78,20 +78,20 @@ class _MovieGridState extends State<MovieGrid> {
                                 top: h / 75,
                                 left: w / 40,
                                 child: Container(
-                                  height: h / 22,
-                                  width: w / 10,
+                                  height: h / 35,
+                                  width: w / 13,
                                   decoration: BoxDecoration(
                                     color: Colors.orange,
-                                    borderRadius: BorderRadius.circular(10),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
                                   child: Center(
                                     child: Text(
-                                      widget.movieGrid[0].voteAverage
+                                      widget.movieGrid[index].voteAverage
                                               ?.toStringAsFixed(1) ??
                                           "0",
                                       style: TextStyle(
                                           fontWeight: FontWeight.w600,
-                                          fontSize: w / 30),
+                                          fontSize: w / 35),
                                     ),
                                   ),
                                 ),

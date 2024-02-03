@@ -38,7 +38,13 @@ class _MovieListState extends State<MovieList> {
             children: [
               Text(
                 widget.text,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: w / 22),
+                style: TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: w / 22,
+                  color: Theme.of(context).brightness == Brightness.light
+                      ? Colors.black
+                      : Colors.white,
+                ),
               ),
               widget.isSeeAll
                   ? GestureDetector(
@@ -86,7 +92,6 @@ class _MovieListState extends State<MovieList> {
                             position: index,
                             duration: const Duration(milliseconds: 500),
                             child: FadeInAnimation(
-                              
                               child: Stack(
                                 children: [
                                   ClipRRect(
@@ -202,7 +207,8 @@ class _MovieListState extends State<MovieList> {
                                                         Ionicons.bug_outline),
                                           )
                                         : Image.asset(
-                                            'assets/images/cinemate_logo.png'),
+                                            'assets/images/cinemate_logo.png',
+                                            fit: BoxFit.contain),
                                   ),
                                 ),
                               ),

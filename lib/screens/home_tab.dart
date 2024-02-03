@@ -67,6 +67,14 @@ class _HomeTabState extends State<HomeTab> {
   Widget build(BuildContext context) {
     final double w = MediaQuery.of(context).size.width;
     final double h = MediaQuery.of(context).size.height;
+    final ThemeData theme=Theme.of(context);
+    final Color baseColor = theme.brightness == Brightness.light
+        ? const Color.fromARGB(31, 220, 217, 217)
+        : const Color.fromARGB(31, 220, 217, 217);
+    final Color highlightColor =
+        theme.brightness == Brightness.light ? Colors.white : const Color.fromARGB(31, 220, 217, 217);
+         final Color containerColor= theme.brightness == Brightness.light ? Colors.white : const Color.fromARGB(154, 220, 217, 217);
+   
     return MultiBlocListener(
       listeners: [
         BlocListener<MoviesBloc, MoviesState>(
@@ -182,14 +190,14 @@ class _HomeTabState extends State<HomeTab> {
                     ),
                   )
                 : Shimmer.fromColors(
-                    baseColor: const Color.fromARGB(31, 220, 217, 217),
-                    highlightColor: Colors.white,
+                    baseColor: baseColor,
+                    highlightColor: highlightColor,
                     child: Container(
                       height: h / 4,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
+                        color: containerColor,
                       ),
                     ),
                   ),
@@ -200,7 +208,9 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: true,
                     movieList: trendingMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(
+                    theme: Theme.of(context),
+                  ),
             SizedBox(height: h / 60),
             topRatedMoviesModel.isNotEmpty
                 ? MovieList(
@@ -211,16 +221,34 @@ class _HomeTabState extends State<HomeTab> {
                 : Padding(
                     padding: EdgeInsets.only(left: w / 20),
                     child: Shimmer.fromColors(
-                      baseColor: const Color.fromARGB(31, 220, 217, 217),
-                      highlightColor: Colors.white,
-                      child: Container(
-                        height: h / 7,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                      baseColor: baseColor,
+                      highlightColor: highlightColor,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: h / 7,
+                              width: double.infinity,
+                              decoration: BoxDecoration(
+                                color: containerColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
+                          ),
+                          SizedBox(width: w/40),
+                          Expanded(
+                        child: Container(
+                          height: h / 7,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: containerColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
                       ),
+                        ],
+                      ),
+                      
                     ),
                   ),
             SizedBox(height: h / 60),
@@ -230,7 +258,7 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: actionMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(theme: Theme.of(context)),
             SizedBox(height: h / 60),
             animationMoviesModel.isNotEmpty
                 ? MovieList(
@@ -238,7 +266,7 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: animationMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(theme: Theme.of(context)),
             SizedBox(height: h / 60),
             comedyMoviesModel.isNotEmpty
                 ? MovieList(
@@ -246,7 +274,7 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: comedyMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(theme: Theme.of(context)),
             SizedBox(height: h / 60),
             romanticMoviesModel.isNotEmpty
                 ? MovieList(
@@ -254,7 +282,7 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: romanticMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(theme: Theme.of(context)),
             SizedBox(height: h / 60),
             thrillerMoviesModel.isNotEmpty
                 ? MovieList(
@@ -262,7 +290,7 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: thrillerMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(theme: Theme.of(context)),
             SizedBox(height: h / 60),
             horrorMoviesModel.isNotEmpty
                 ? MovieList(
@@ -270,7 +298,7 @@ class _HomeTabState extends State<HomeTab> {
                     isSeeAll: false,
                     movieList: horrorMoviesModel,
                     isbox: true)
-                : const MOvieListShimmer(),
+                : MOvieListShimmer(theme: Theme.of(context)),
           ],
         ),
       ),
