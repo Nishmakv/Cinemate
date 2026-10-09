@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/data_source/api_client.dart';
 import 'package:movie_app/model/search_movies_model.dart';
 
 class NowPlayingMoviesDataSource {
-  Dio client = Dio();
+  final Dio client = ApiClient().dio;
   Future<List<MovieSearchModel>> nowPlayingmovies() async {
     List<MovieSearchModel> nowPlayingMoviesModel = [];
     final respose = await client.get(
@@ -10,9 +11,14 @@ class NowPlayingMoviesDataSource {
         options: Options(headers: {
           'content-type': 'application/json',
         }));
-    (respose.data['results'] as List).forEach((element) {
-      nowPlayingMoviesModel.add(MovieSearchModel.fromJson(element));
-    });
+    final results = respose.data['results'] as List?;
+    if (results != null) {
+      for (var element in results) {
+        try {
+          nowPlayingMoviesModel.add(MovieSearchModel.fromJson(element));
+        } catch (_) {}
+      }
+    }
     return nowPlayingMoviesModel;
   }
 }

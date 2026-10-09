@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/data_source/api_client.dart';
 import 'package:movie_app/model/search_movies_model.dart';
 
 class SearchMoviesDataSource {
-  Dio client = Dio();
+  final Dio client = ApiClient().dio;
   Future<List<MovieSearchModel>> searchMovies(String? name) async {
     List<MovieSearchModel> searchMoviesModel = [];
     final response = await client.get(

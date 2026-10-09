@@ -41,21 +41,23 @@ class TrendingMovies {
   });
 
   factory TrendingMovies.fromJson(Map<String, dynamic> json) => TrendingMovies(
-        adult: json["adult"],
-        backdropPath: json["backdrop_path"],
-        id: json["id"],
-        title: json["title"],
-        originalLanguage: json["original_language"],
-        originalTitle: json["original_title"],
-        overview: json["overview"],
-        posterPath: json["poster_path"],
-        mediaType: json["media_type"],
-        genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
-        popularity: json["popularity"]?.toDouble(),
-        releaseDate: json["release_date"],
-        video: json["video"],
-        voteAverage: json["vote_average"]?.toDouble(),
-        voteCount: json["vote_count"],
+        adult: json["adult"] ?? false,
+        backdropPath: json["backdrop_path"] ?? "",
+        id: json["id"] ?? 0,
+        title: json["title"] ?? "",
+        originalLanguage: json["original_language"] ?? "",
+        originalTitle: json["original_title"] ?? "",
+        overview: json["overview"] ?? "",
+        posterPath: json["poster_path"] ?? "",
+        mediaType: json["media_type"] ?? "",
+        genreIds: json["genre_ids"] != null
+            ? List<int>.from(json["genre_ids"].map((x) => x))
+            : [],
+        popularity: (json["popularity"] as num?)?.toDouble() ?? 0.0,
+        releaseDate: json["release_date"] ?? "",
+        video: json["video"] ?? false,
+        voteAverage: (json["vote_average"] as num?)?.toDouble() ?? 0.0,
+        voteCount: json["vote_count"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

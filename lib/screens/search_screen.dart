@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:ionicons_plus/ionicons_plus.dart';
 import 'package:movie_app/bloc/movies_bloc.dart';
 import 'package:movie_app/model/search_movies_model.dart';
 import 'package:movie_app/widgets/movie_grid.dart';

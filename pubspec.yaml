@@ -43,7 +43,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.1
   google_fonts: ^6.1.0
   intl: ^0.19.0
-  ionicons: ^0.2.2
+  ionicons_plus: ^0.2.5
   readmore: ^2.2.0
   shimmer: ^3.0.0
   

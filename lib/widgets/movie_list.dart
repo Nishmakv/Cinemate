@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:ionicons_plus/ionicons_plus.dart';
 import 'package:movie_app/bloc/navigation_bloc.dart';
 
 import 'package:movie_app/screens/movie_detail_screen.dart';
@@ -99,12 +99,11 @@ class _MovieListState extends State<MovieList> {
                                     child: SizedBox(
                                       height: h / 3.8,
                                       width: w / 3,
-                                      child: widget.movieList[index]
-                                                  .posterPath !=
-                                              null
+                                      child: (widget.movieList[index].posterPath != null &&
+                                              widget.movieList[index].posterPath!.isNotEmpty)
                                           ? CachedNetworkImage(
                                               imageUrl:
-                                                  'https://image.tmdb.org/t/p/w780${widget.movieList[index].posterPath}',
+                                                  'https://image.tmdb.org/t/p/w780${widget.movieList[index].posterPath!.startsWith('/') ? widget.movieList[index].posterPath! : '/${widget.movieList[index].posterPath!}'}',
                                               fit: BoxFit.cover,
                                               progressIndicatorBuilder:
                                                   (context, url,
@@ -186,12 +185,11 @@ class _MovieListState extends State<MovieList> {
                                   borderRadius: BorderRadius.circular(10),
                                   child: SizedBox(
                                     width: w / 1.7,
-                                    child: widget.movieList[index]
-                                                .backdropPath !=
-                                            null
+                                    child: (widget.movieList[index].backdropPath != null &&
+                                            widget.movieList[index].backdropPath!.isNotEmpty)
                                         ? CachedNetworkImage(
                                             imageUrl:
-                                                'https://image.tmdb.org/t/p/w780${widget.movieList[index].backdropPath}',
+                                                'https://image.tmdb.org/t/p/w780${widget.movieList[index].backdropPath!.startsWith('/') ? widget.movieList[index].backdropPath! : '/${widget.movieList[index].backdropPath!}'}',
                                             fit: BoxFit.cover,
                                             progressIndicatorBuilder: (context,
                                                     url, downloadProgress) =>

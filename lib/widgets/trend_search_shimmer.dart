@@ -29,7 +29,7 @@ class TrendingShimmer extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: h / 3,
+                    height: h / 3.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: containerColor,
@@ -40,7 +40,7 @@ class TrendingShimmer extends StatelessWidget {
                 SizedBox(width: w / 25),
                 Expanded(
                   child: Container(
-                    height: h / 3,
+                    height: h / 3.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: containerColor,
@@ -55,7 +55,7 @@ class TrendingShimmer extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: h / 3,
+                    height: h / 3.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: containerColor,
@@ -66,7 +66,7 @@ class TrendingShimmer extends StatelessWidget {
                 SizedBox(width: w / 20),
                 Expanded(
                   child: Container(
-                    height: h / 3,
+                    height: h / 3.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: containerColor,
@@ -81,7 +81,7 @@ class TrendingShimmer extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: h / 3,
+                    height: h / 3.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: containerColor,
@@ -92,7 +92,7 @@ class TrendingShimmer extends StatelessWidget {
                 SizedBox(width: w / 20),
                 Expanded(
                   child: Container(
-                    height: h / 3,
+                    height: h / 3.8,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       color: containerColor,

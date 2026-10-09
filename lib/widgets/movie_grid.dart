@@ -55,11 +55,11 @@ class _MovieGridState extends State<MovieGrid> {
                                 borderRadius: BorderRadius.circular(10),
                                 child: SizedBox(
                                   width: w / 0.1,
-                                  child: widget.movieGrid[index].posterPath !=
-                                          null
+                                  child: (widget.movieGrid[index].posterPath != null &&
+                                          widget.movieGrid[index].posterPath!.isNotEmpty)
                                       ? CachedNetworkImage(
                                           imageUrl:
-                                              'https://image.tmdb.org/t/p/w342${widget.movieGrid[index].posterPath}',
+                                              'https://image.tmdb.org/t/p/w342${widget.movieGrid[index].posterPath!.startsWith('/') ? widget.movieGrid[index].posterPath! : '/${widget.movieGrid[index].posterPath!}'}',
                                           fit: BoxFit.cover,
                                           progressIndicatorBuilder: (context,
                                                   url, downloadProgress) =>

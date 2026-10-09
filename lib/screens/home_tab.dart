@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,8 +33,26 @@ class _HomeTabState extends State<HomeTab> {
   void initState() {
     super.initState();
 
+    final moviesState = context.read<MoviesBloc>().state;
+    if (moviesState is NowPlayingMoviesSuccess) {
+      nowPlayingMoviesModel = List.from(moviesState.nowPlayingMoviesModel);
+    }
+    if (moviesState is MoviesSuccess) {
+      trendingMoviesModel = List.from(moviesState.trendingMoviesModel);
+    }
+
+    _fetchInitialData();
+  }
+
+  void _fetchInitialData() {
+    context.read<MoviesBloc>().add(
+          const NowPlayingMoviesProcess(),
+        );
     context.read<MoviesBloc>().add(
           const MovieProcess(),
+        );
+    context.read<GenresBloc>().add(
+          const TopRatedMoviesProcess(),
         );
     context.read<GenresBloc>().add(
           GenresActionProcess(id: 28),
@@ -53,34 +72,29 @@ class _HomeTabState extends State<HomeTab> {
     context.read<GenresBloc>().add(
           HorrorMoviesProcess(id: 27),
         );
-
-    context.read<MoviesBloc>().add(
-          const NowPlayingMoviesProcess(),
-        );
-
-    context.read<GenresBloc>().add(
-          const TopRatedMoviesProcess(),
-        );
   }
 
   @override
   Widget build(BuildContext context) {
     final double w = MediaQuery.of(context).size.width;
     final double h = MediaQuery.of(context).size.height;
-    final ThemeData theme=Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     final Color baseColor = theme.brightness == Brightness.light
         ? const Color.fromARGB(31, 220, 217, 217)
         : const Color.fromARGB(31, 220, 217, 217);
-    final Color highlightColor =
-        theme.brightness == Brightness.light ? Colors.white : const Color.fromARGB(31, 220, 217, 217);
-         final Color containerColor= theme.brightness == Brightness.light ? Colors.white : const Color.fromARGB(154, 220, 217, 217);
-   
+    final Color highlightColor = theme.brightness == Brightness.light
+        ? Colors.white
+        : const Color.fromARGB(31, 220, 217, 217);
+    final Color containerColor = theme.brightness == Brightness.light
+        ? Colors.white
+        : const Color.fromARGB(154, 220, 217, 217);
+
     return MultiBlocListener(
       listeners: [
         BlocListener<MoviesBloc, MoviesState>(
           listener: (context, state) {
             if (state is MoviesSuccess) {
-              trendingMoviesModel.addAll(state.trendingMoviesModel);
+              trendingMoviesModel = List.from(state.trendingMoviesModel);
               setState(() {});
             }
           },
@@ -88,7 +102,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is GenresActionSuccess) {
-              actionMoviesModel.addAll(state.actionMoviesModel);
+              actionMoviesModel = List.from(state.actionMoviesModel);
               setState(() {});
             }
           },
@@ -96,7 +110,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<MoviesBloc, MoviesState>(
           listener: (context, state) {
             if (state is NowPlayingMoviesSuccess) {
-              nowPlayingMoviesModel.addAll(state.nowPlayingMoviesModel);
+              nowPlayingMoviesModel = List.from(state.nowPlayingMoviesModel);
               setState(() {});
             }
           },
@@ -104,7 +118,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is AnimationMoviesSuccess) {
-              animationMoviesModel.addAll(state.animationMoviesModel);
+              animationMoviesModel = List.from(state.animationMoviesModel);
               setState(() {});
             }
           },
@@ -112,7 +126,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is ComedyMoviesSuccess) {
-              comedyMoviesModel.addAll(state.comedyMoviesModel);
+              comedyMoviesModel = List.from(state.comedyMoviesModel);
               setState(() {});
             }
           },
@@ -120,7 +134,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is RomanticMoviesSuccess) {
-              romanticMoviesModel.addAll(state.romanticMoviesModel);
+              romanticMoviesModel = List.from(state.romanticMoviesModel);
               setState(() {});
             }
           },
@@ -128,7 +142,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is ThrillerMoviesSuccess) {
-              thrillerMoviesModel.addAll(state.thrillerMoviesModel);
+              thrillerMoviesModel = List.from(state.thrillerMoviesModel);
               setState(() {});
             }
           },
@@ -136,7 +150,7 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is HorrorMoviesSuccess) {
-              horrorMoviesModel.addAll(state.horrorMoviesModel);
+              horrorMoviesModel = List.from(state.horrorMoviesModel);
               setState(() {});
             }
           },
@@ -144,14 +158,20 @@ class _HomeTabState extends State<HomeTab> {
         BlocListener<GenresBloc, GenresState>(
           listener: (context, state) {
             if (state is TopRatedMoviesSuccess) {
-              topRatedMoviesModel.addAll(state.topRatedMoviesModel);
+              topRatedMoviesModel = List.from(state.topRatedMoviesModel);
               setState(() {});
             }
           },
         )
       ],
-      child: SingleChildScrollView(
-        child: Column(
+      child: RefreshIndicator(
+        color: Colors.orange,
+        onRefresh: () async {
+          _fetchInitialData();
+          await Future.delayed(const Duration(seconds: 1));
+        },
+        child: SingleChildScrollView(
+          child: Column(
           children: [
             Padding(
               padding: EdgeInsets.only(top: h / 20),
@@ -181,9 +201,39 @@ class _HomeTabState extends State<HomeTab> {
                           },
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                                'https://image.tmdb.org/t/p/w780${nowPlayingMoviesModel[index].backdropPath}',
-                                fit: BoxFit.fill),
+                            child: Builder(
+                              builder: (context) {
+                                final backdrop = nowPlayingMoviesModel[index].backdropPath;
+                                final poster = nowPlayingMoviesModel[index].posterPath;
+                                final String? path = (backdrop != null && backdrop.isNotEmpty)
+                                    ? backdrop
+                                    : (poster != null && poster.isNotEmpty ? poster : null);
+
+                                if (path == null) {
+                                  return Image.asset(
+                                    'assets/images/cinemate_logo.png',
+                                    fit: BoxFit.contain,
+                                  );
+                                }
+
+                                final String cleanPath = path.startsWith('/') ? path : '/$path';
+                                return CachedNetworkImage(
+                                  imageUrl: 'https://image.tmdb.org/t/p/w780$cleanPath',
+                                  fit: BoxFit.fill,
+                                  placeholder: (context, url) => Shimmer.fromColors(
+                                    baseColor: baseColor,
+                                    highlightColor: highlightColor,
+                                    child: Container(
+                                      color: containerColor,
+                                    ),
+                                  ),
+                                  errorWidget: (context, url, error) => Image.asset(
+                                    'assets/images/cinemate_logo.png',
+                                    fit: BoxFit.contain,
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         );
                       },
@@ -302,6 +352,7 @@ class _HomeTabState extends State<HomeTab> {
           ],
         ),
       ),
-    );
+    ),
+  );
   }
 }

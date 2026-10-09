@@ -18,19 +18,22 @@ class _TrendingMoviesScreenState extends State<TrendingMoviesScreen> {
   @override
   void initState() {
     super.initState();
-    context.read<MoviesBloc>().add(
-          const MovieProcess(),
-        );
+    final currentState = context.read<MoviesBloc>().state;
+    if (currentState is MoviesSuccess) {
+      trendingMoviesModel = List.from(currentState.trendingMoviesModel);
+    } else {
+      context.read<MoviesBloc>().add(
+            const MovieProcess(),
+          );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final double h = MediaQuery.of(context).size.height;
-    final double w = MediaQuery.of(context).size.width;
     return BlocListener<MoviesBloc, MoviesState>(
       listener: (context, state) {
         if (state is MoviesSuccess) {
-          trendingMoviesModel.addAll(state.trendingMoviesModel);
+          trendingMoviesModel = List.from(state.trendingMoviesModel);
           setState(() {});
         }
       },
@@ -38,8 +41,13 @@ class _TrendingMoviesScreenState extends State<TrendingMoviesScreen> {
         builder: (context, state) {
           final double h = MediaQuery.of(context).size.height;
 
-          if (state is MoviesLoading) {
-            return const TrendingShimmer();
+          if (state is MoviesLoading || trendingMoviesModel.isEmpty) {
+            return Padding(
+              padding: EdgeInsets.only(top: h / 40),
+              child: const SingleChildScrollView(
+                child: TrendingShimmer(),
+              ),
+            );
           } else {
             return Padding(
               padding: EdgeInsets.only(top: h / 40),

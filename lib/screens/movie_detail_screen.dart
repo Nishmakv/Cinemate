@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:ionicons_plus/ionicons_plus.dart';
 import 'package:movie_app/bloc/movies_bloc.dart';
 import 'package:movie_app/model/movie_details_by_id_model.dart';
 import 'package:intl/intl.dart';
@@ -89,7 +90,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   children: [
                     BlocBuilder<MoviesBloc, MoviesState>(
                       builder: (context, state) {
-                        if (state is MovieDetailsByIdLoading) {
+                        if (state is MovieDetailsByIdLoading || movieDetailsByIdModel == null) {
                           return Shimmer.fromColors(
                             baseColor: baseColor,
                             highlightColor: highlightColor,
@@ -104,12 +105,48 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           );
                         }
 
-                        return SizedBox(
+                        final backdrop = movieDetailsByIdModel?.backdropPath;
+                        final poster = movieDetailsByIdModel?.posterPath;
+                        final String? path = (backdrop != null && backdrop.isNotEmpty)
+                            ? backdrop
+                            : (poster != null && poster.isNotEmpty ? poster : null);
+
+                        if (path == null) {
+                          return SizedBox(
                             height: h / 3,
                             width: w / 1,
-                            child: Image.network(
-                                'https://image.tmdb.org/t/p/w780/${movieDetailsByIdModel?.backdropPath ?? ''}',
-                                fit: BoxFit.cover));
+                            child: Image.asset(
+                              'assets/images/cinemate_logo.png',
+                              fit: BoxFit.contain,
+                            ),
+                          );
+                        }
+
+                        final String cleanPath = path.startsWith('/') ? path : '/$path';
+                        return SizedBox(
+                          height: h / 3,
+                          width: w / 1,
+                          child: CachedNetworkImage(
+                            imageUrl: 'https://image.tmdb.org/t/p/w780$cleanPath',
+                            fit: BoxFit.cover,
+                            placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: baseColor,
+                              highlightColor: highlightColor,
+                              child: Container(
+                                height: h / 3,
+                                width: w / 1,
+                                decoration: BoxDecoration(
+                                  color: containerColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                            ),
+                            errorWidget: (context, url, error) => Image.asset(
+                              'assets/images/cinemate_logo.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        );
                       },
                     ),
                     Positioned(

@@ -1,7 +1,7 @@
 import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:ionicons_plus/ionicons_plus.dart';
 import 'package:movie_app/bloc/navigation_bloc.dart';
 import 'package:movie_app/screens/home_tab.dart';
 import 'package:movie_app/screens/search_screen.dart';
@@ -16,11 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  List screens = [
-    const HomeTab(),
-    const TrendingMoviesScreen(),
-    const SearchScreen()
-  ];
   @override
   Widget build(BuildContext context) {
     final double w = MediaQuery.of(context).size.width;
@@ -35,7 +30,14 @@ class _HomeScreenState extends State<HomeScreen> {
         extendBodyBehindAppBar: true,
         extendBody: true,
         backgroundColor: Theme.of(context).colorScheme.background,
-        body: screens[selectedIndex],
+        body: IndexedStack(
+          index: selectedIndex,
+          children: const [
+            HomeTab(),
+            TrendingMoviesScreen(),
+            SearchScreen(),
+          ],
+        ),
         bottomNavigationBar: Padding(
           padding: EdgeInsets.all(h / 38),
           child: DotNavigationBar(

@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/data_source/api_client.dart';
 import 'package:movie_app/model/trending_movies_model.dart';
 
 class TrendingMoviesDataSource {
-  Dio client = Dio();
+  final Dio client = ApiClient().dio;
   Future<List<TrendingMovies>> trendingMovies() async {
     List<TrendingMovies> trendingMoviesModel = [];
     final response = await client.get(
@@ -11,11 +12,16 @@ class TrendingMoviesDataSource {
           'content-type': 'application/json',
         }));
     try {
-      (response.data['results'] as List).forEach((element) {
-        trendingMoviesModel.add(TrendingMovies.fromJson(element));
-      });
+      final results = response.data['results'] as List?;
+      if (results != null) {
+        for (var element in results) {
+          try {
+            trendingMoviesModel.add(TrendingMovies.fromJson(element));
+          } catch (_) {}
+        }
+      }
     } catch (e) {
-      print(e);
+      // ignore
     }
 
     print(trendingMoviesModel);

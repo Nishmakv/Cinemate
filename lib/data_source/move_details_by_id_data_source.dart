@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:movie_app/data_source/api_client.dart';
 import 'package:movie_app/model/movie_details_by_id_model.dart';
 
 class MovieDetailsByIdDataSource {
-  Dio client = Dio();
+  final Dio client = ApiClient().dio;
   Future movieDetailsById(int? id) async {
     MovieDetailsById movieDetailsByIdModel;
     final response = await client.get(
